@@ -46,4 +46,10 @@ class VouchersControllerTest < ActionController::TestCase
 
     assert_redirected_to vouchers_path
   end
+  
+  test "should get help" do
+    get vouchers_help_url
+    assert_response :success
+  end  
+  
 end
