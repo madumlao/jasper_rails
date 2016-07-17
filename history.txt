@@ -1,0 +1,4 @@
+rails generate scaffold Voucher no:string date:date payee:string description:text amount:decimal
+rake db:migrate
+rails s
+
