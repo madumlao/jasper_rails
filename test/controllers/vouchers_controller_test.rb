@@ -48,7 +48,7 @@ class VouchersControllerTest < ActionController::TestCase
   end
   
   test "should get help" do
-    get vouchers_help_url
+    get :help
     assert_response :success
   end  
   
