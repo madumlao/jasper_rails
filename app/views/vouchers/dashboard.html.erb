@@ -1,3 +1,4 @@
+<% date = "2016-01-01"%>
 <h1>Dashboard</h2>
 Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12> 
 <div id="vouchersearchresult"></div>
@@ -9,7 +10,8 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
   <td>
     <% 
     @account = @accountgroups[j][i]
-    concat link_to @account.name, voucher_accounts_url if(@account)
+    concat link_to @account.name, new_voucher_url + "?account_id=" + @account.id.to_s + "&date=" + date if(@account)
+      
     %>&nbsp;&nbsp;&nbsp;&nbsp;
   </td>
   <% end %>

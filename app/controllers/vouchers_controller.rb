@@ -16,7 +16,7 @@ class VouchersController < ApplicationController
   	    @accountgroups[j].push(@accounts[j*@accountspergroup+i]);
   	  end
   	end
-#      	
+      	
 #    //auto set date to today, unless date is specified
 #    $requestparams=$request->getParameter("voucher");
 #    $day=$requestparams["date"]["day"];
