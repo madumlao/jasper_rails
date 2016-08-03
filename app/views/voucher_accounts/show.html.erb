@@ -1,29 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>No:</strong>
-  <%= @voucher.no %>
+  <strong>Name:</strong>
+  <%= @voucher_account.name %>
 </p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @voucher.date %>
-</p>
-
-<p>
-  <strong>Payee:</strong>
-  <%= @voucher.payee %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @voucher.description %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @voucher.amount %>
-</p>
-
-<%= link_to 'Edit', edit_voucher_path(@voucher) %> |
-<%= link_to 'Back', vouchers_path %>
+<%= link_to 'Edit', edit_voucher_account_path(@voucher_account) %> |
+<%= link_to 'Back', voucher_accounts_path %>

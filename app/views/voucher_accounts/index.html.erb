@@ -15,7 +15,7 @@
       <tr>
         <td><%= voucher_account.name %></td>
         <td><%= link_to 'Show', voucher_account %></td>
-        <td><%= link_to 'Edit', edit_voucher_path(voucher_account) %></td>
+        <td><%= link_to 'Edit', edit_voucher_account_path(voucher_account) %></td>
         <td><%= link_to 'Destroy', voucher_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
