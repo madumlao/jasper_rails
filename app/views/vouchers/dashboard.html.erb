@@ -1,0 +1,19 @@
+<h1>Dashboard</h2>
+Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12> 
+<div id="vouchersearchresult"></div>
+<hr>
+<table cellpadding=10>
+<% (0...@accountspergroup).each do |i|%>
+<tr>
+  <% (0...@columncount).each do |j|%>
+  <td>
+    <% 
+    @account = @accountgroups[j][i]
+    concat link_to @account.name, voucher_accounts_url if(@account)
+    %>&nbsp;&nbsp;&nbsp;&nbsp;
+  </td>
+  <% end %>
+</tr>
+<% end %>
+</table>
+

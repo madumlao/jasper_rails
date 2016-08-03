@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'vouchers#index'
+  root 'vouchers#dashboard'
   get 'vouchers/help'
+  get 'vouchers/dashboard'
   get 'voucher_accounts/help'
   resources :vouchers
   resources :voucher_accounts
