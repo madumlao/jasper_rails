@@ -27,12 +27,10 @@ ActiveRecord::Schema.define(version: 20160806000000) do
     t.decimal  "amount",                           precision: 10
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
-    t.integer  "voucher_type_id",    limit: 4
     t.integer  "voucher_account_id", limit: 4
   end
 
   add_index "vouchers", ["voucher_account_id"], name: "index_vouchers_on_voucher_account_id", using: :btree
-  add_index "vouchers", ["voucher_type_id"], name: "index_vouchers_on_voucher_type_id", using: :btree
 
   add_foreign_key "vouchers", "voucher_accounts"
 end

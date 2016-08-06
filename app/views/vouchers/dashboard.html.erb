@@ -9,7 +9,7 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
   <%= date_select("dateholder", "date", :order => [:month, :day, :year], :use_short_month => true)  %>
   <%= submit_tag("View") %>
 <% end %>
----<%=@datereceived%>---
+
 <hr>
 <table cellpadding=10>
 <% (0...@accountspergroup).each do |i|%>
@@ -42,7 +42,7 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
   <tr>
     <td><%= voucher.date%></td>
     <td>
-      <%= form_tag("voucher/editNo")%>
+      <%= form_tag("/vouchers/editNo")%>
       <%= hidden_field_tag(:id, voucher.id) %>
       <%= text_field_tag(:no, voucher.no, {size:5}) %>
       </form>
@@ -50,7 +50,7 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
     <td><%= voucher.voucher_account.name %></td>
     <td><%= voucher.payee %></td>
     <td>
-      <%= form_tag("voucher/editAmount")%>
+      <%= form_tag("/vouchers/editAmount")%>
       <%= hidden_field_tag(:id, voucher.id) %>
       <%= text_field_tag(:amount, voucher.amount, {size:5 }) %>
       </form>

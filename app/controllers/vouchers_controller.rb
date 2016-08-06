@@ -1,6 +1,19 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy]
 
+  def editNo
+    voucher=Voucher.find(params['id'])
+    voucher.no=params['no']
+    voucher.save
+    redirect_to vouchers_dashboard_path+"?date="+voucher.date.to_s 
+  end
+  def editAmount
+    voucher=Voucher.find(params['id'])
+    voucher.amount=params['amount']
+    voucher.save
+    redirect_to vouchers_dashboard_path+"?date="+voucher.date.to_s 
+  end
+  
   def dashboard
 
     #load accounts
@@ -20,7 +33,9 @@ class VouchersController < ApplicationController
   	#if params[dateholder] exists, save it to dateholder 
   	#if it doesn't, dateholder widget defaults to today
   	@dateholder = Voucher.new
-  	if params['dateholder']
+  	if params['date']
+  	  @dateholder.date = params['date']
+  	elsif params['dateholder']
     	@dateholder.date = params['dateholder']['date(1i)']+"-"+
                     	  params['dateholder']['date(2i)']+"-"+
                     	  params['dateholder']['date(3i)']
