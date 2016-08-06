@@ -1,7 +1,15 @@
-<% date = "2016-01-01"%>
+
 <h1>Dashboard</h2>
 Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12> 
 <div id="vouchersearchresult"></div>
+
+<hr>
+<%= form_tag("/vouchers/dashboard", method: "get") do %>
+  <%= label_tag(:date, "Date:") %>
+  <%= date_select("dateholder", "date", :order => [:month, :day, :year], :use_short_month => true)  %>
+  <%= submit_tag("View") %>
+<% end %>
+---<%=@datereceived%>---
 <hr>
 <table cellpadding=10>
 <% (0...@accountspergroup).each do |i|%>
@@ -10,12 +18,47 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
   <td>
     <% 
     @account = @accountgroups[j][i]
-    concat link_to @account.name, new_voucher_url + "?account_id=" + @account.id.to_s + "&date=" + date if(@account)
+    concat link_to @account.name, new_voucher_url + "?account_id=" + @account.id.to_s + "&date=" + @dateholder.date.to_s if(@account)
       
     %>&nbsp;&nbsp;&nbsp;&nbsp;
   </td>
   <% end %>
 </tr>
 <% end %>
+</table>
+
+<table border=1>
+  <tr>
+    <td>Date</td>
+    <td>Voucher No.</td>
+    <td>Account</td>
+    <td>Payee</td>
+    <td>Amount</td>
+    <td>Particulars</td>
+    <td>Edit</td>
+    <td>Delete</td>
+  </tr>
+    <% @vouchers.each do |voucher| %>
+  <tr>
+    <td><%= voucher.date%></td>
+    <td>
+      <%= form_tag("voucher/editNo")%>
+      <%= hidden_field_tag(:id, voucher.id) %>
+      <%= text_field_tag(:no, voucher.no, {size:5}) %>
+      </form>
+    </td>
+    <td><%= voucher.voucher_account.name %></td>
+    <td><%= voucher.payee %></td>
+    <td>
+      <%= form_tag("voucher/editAmount")%>
+      <%= hidden_field_tag(:id, voucher.id) %>
+      <%= text_field_tag(:amount, voucher.amount, {size:5 }) %>
+      </form>
+    </td>
+    <td><%= voucher.description %></td>
+    <td><%= link_to("Edit",edit_voucher_path(voucher))%></td>
+    <td><%= link_to 'Delete', voucher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+    <% end%>
 </table>
 

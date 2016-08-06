@@ -16,31 +16,19 @@ class VouchersController < ApplicationController
   	    @accountgroups[j].push(@accounts[j*@accountspergroup+i]);
   	  end
   	end
-      	
-#    //auto set date to today, unless date is specified
-#    $requestparams=$request->getParameter("voucher");
-#    $day=$requestparams["date"]["day"];
-#    $month=$requestparams["date"]["month"];
-#    $year=$requestparams["date"]["year"];
-#    $dateholder=new Voucher();
-#    if($request->hasParameter('date'))
-#      $dateholder->setDate($request->getParameter('date'));
-#    else if(!$day or !$month or !$year)
-#      $dateholder->setDate(MyDate::today());
-#    else
-#      $dateholder->setDate($year."-".$month."-".$day);
-#
-#    //create new voucher input form
-#    //this really is just for date input
-#    @form=new VoucherForm($dateholder);
-#
-#    //load vouchers from database to be displayed
-#    @vouchers =Doctrine_Query::create()
-#        ->from('Voucher i')
-#        ->where('date="'.$dateholder->getDate().'"')
-#        ->orderBy('i.voucher_type_id,i.time')
-#        ->execute();
-#
+  	
+  	#if params[dateholder] exists, save it to dateholder 
+  	#if it doesn't, dateholder widget defaults to today
+  	@dateholder = Voucher.new
+  	if params['dateholder']
+    	@dateholder.date = params['dateholder']['date(1i)']+"-"+
+                    	  params['dateholder']['date(2i)']+"-"+
+                    	  params['dateholder']['date(3i)']
+	  end
+
+    #load vouchers from database to be displayed
+    @vouchers =Voucher.where(date: @dateholder.date).order(:voucher_account_id)
+
 #    @forms=array();
 #    foreach(@vouchers as $voucher)
 #    {

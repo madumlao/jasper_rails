@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160717033659) do
+ActiveRecord::Schema.define(version: 20160806000000) do
 
   create_table "voucher_accounts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -20,13 +20,19 @@ ActiveRecord::Schema.define(version: 20160717033659) do
   end
 
   create_table "vouchers", force: :cascade do |t|
-    t.string   "no",          limit: 255
+    t.string   "no",                 limit: 255
     t.date     "date"
-    t.string   "payee",       limit: 255
-    t.text     "description", limit: 65535
-    t.decimal  "amount",                    precision: 10
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.string   "payee",              limit: 255
+    t.text     "description",        limit: 65535
+    t.decimal  "amount",                           precision: 10
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "voucher_type_id",    limit: 4
+    t.integer  "voucher_account_id", limit: 4
   end
 
+  add_index "vouchers", ["voucher_account_id"], name: "index_vouchers_on_voucher_account_id", using: :btree
+  add_index "vouchers", ["voucher_type_id"], name: "index_vouchers_on_voucher_type_id", using: :btree
+
+  add_foreign_key "vouchers", "voucher_accounts"
 end
