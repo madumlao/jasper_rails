@@ -27,6 +27,7 @@ Search Voucher:	<input id=vouchersearchinput autocomplete="off" size=12>
 <% end %>
 </table>
 
+<br><br>Total:<%=number_with_precision(@total, :precision => 2, :delimiter => ',')%>
 <table border=1>
   <tr>
     <td>Date</td>

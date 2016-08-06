@@ -7,6 +7,7 @@ class VouchersController < ApplicationController
     voucher.save
     redirect_to vouchers_dashboard_path+"?date="+voucher.date.to_s 
   end
+  
   def editAmount
     voucher=Voucher.find(params['id'])
     voucher.amount=params['amount']
@@ -44,28 +45,11 @@ class VouchersController < ApplicationController
     #load vouchers from database to be displayed
     @vouchers =Voucher.where(date: @dateholder.date).order(:voucher_account_id)
 
-#    @forms=array();
-#    foreach(@vouchers as $voucher)
-#    {
-#      @forms[]=new VoucherForm($voucher);
-#    }
-#
-#    //calculate totals
-#      @pettycashtotal=0;
-#      @chequetotal=0;
-#      @othertotal=0;
-#      @total=0;
-#      foreach(@vouchers as $voucher)
-#      {
-#        @total+=$voucher->getAmount();
-#        if($voucher->getVoucherTypeId()==1)
-#          @pettycashtotal+=$voucher->getAmount();
-#        else if($voucher->getVoucherTypeId()==2)
-#          @chequetotal+=$voucher->getAmount();
-#        else
-#          @othertotal+=$voucher->getAmount();
-#      }
-#  }    
+    #calculate totals
+    @total=0;
+    @vouchers.each do |v|
+      @total+=v.amount
+    end
   end
   
   def help
@@ -85,6 +69,9 @@ class VouchersController < ApplicationController
   # GET /vouchers/new
   def new
     @voucher = Voucher.new
+    if params['voucher_account_id'] 
+      @voucher.voucher_account_id=params['voucher_account_id']
+    end
   end
 
   # GET /vouchers/1/edit
