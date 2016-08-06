@@ -21,5 +21,5 @@ VoucherAccount.create!(name: "Utils - Water")
 VoucherAccount.create!(name: "Food")
 VoucherAccount.create!(name: "Utils - Landline")
 VoucherAccount.create!(name: "Utils - Mobile")
-Voucher.create!(no: "12345", payee: "me", voucher_account: vatravel, amount: 1000, description: "meryenda", date: "2016-01-01")
+Voucher.create!(no: "12345", payee: "me", voucher_account: vatravel, amount: 1000, description: "meryenda", date: "2016-08-06")
 
