@@ -31,8 +31,9 @@ class VouchersController < ApplicationController
   	  end
   	end
   	
-  	#if params[dateholder] exists, save it to dateholder 
-  	#if not, default value is today
+  	#if params[date] exists, save it to dateholder 
+  	#else if params[dateholder] exists, save it to dateholder 
+  	#else, default value is today
   	@dateholder = Voucher.new
   	if params['date']
   	  @dateholder.date = params['date']
