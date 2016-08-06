@@ -32,7 +32,7 @@ class VouchersController < ApplicationController
   	end
   	
   	#if params[dateholder] exists, save it to dateholder 
-  	#if it doesn't, dateholder widget defaults to today
+  	#if not, default value is today
   	@dateholder = Voucher.new
   	if params['date']
   	  @dateholder.date = params['date']
@@ -40,6 +40,8 @@ class VouchersController < ApplicationController
     	@dateholder.date = params['dateholder']['date(1i)']+"-"+
                     	  params['dateholder']['date(2i)']+"-"+
                     	  params['dateholder']['date(3i)']
+	  else
+	    @dateholder.date = Date.today.to_s
 	  end
 
     #load vouchers from database to be displayed
