@@ -1,6 +1,60 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: [:show, :edit, :update, :destroy]
 
+  def editNo
+    voucher=Voucher.find(params['id'])
+    voucher.no=params['no']
+    voucher.save
+    redirect_to vouchers_dashboard_path+"?date="+voucher.date.to_s 
+  end
+  
+  def editAmount
+    voucher=Voucher.find(params['id'])
+    voucher.amount=params['amount']
+    voucher.save
+    redirect_to vouchers_dashboard_path+"?date="+voucher.date.to_s 
+  end
+  
+  def dashboard
+
+    #load accounts
+    @accounts= VoucherAccount.all
+      	
+    #group accounts into columns
+    @columncount=4.0;
+  	@accountgroups=[];
+  	@accountspergroup=(@accounts.count/@columncount).ceil;
+  	(0...@accountspergroup).each do |i|
+  	  (0...@columncount).each do |j|
+    	  @accountgroups[j] ||= []
+  	    @accountgroups[j].push(@accounts[j*@accountspergroup+i]);
+  	  end
+  	end
+  	
+  	#if params[date] exists, save it to dateholder 
+  	#else if params[dateholder] exists, save it to dateholder 
+  	#else, default value is today
+  	@dateholder = Voucher.new
+  	if params['date']
+  	  @dateholder.date = params['date']
+  	elsif params['dateholder']
+    	@dateholder.date = params['dateholder']['date(1i)']+"-"+
+                    	  params['dateholder']['date(2i)']+"-"+
+                    	  params['dateholder']['date(3i)']
+	  else
+	    @dateholder.date = Date.today.to_s
+	  end
+
+    #load vouchers from database to be displayed
+    @vouchers =Voucher.where(date: @dateholder.date).order(:voucher_account_id)
+
+    #calculate totals
+    @total=0;
+    @vouchers.each do |v|
+      @total+=v.amount
+    end
+  end
+  
   def help
   end
 
@@ -18,6 +72,9 @@ class VouchersController < ApplicationController
   # GET /vouchers/new
   def new
     @voucher = Voucher.new
+    if params['voucher_account_id'] 
+      @voucher.voucher_account_id=params['voucher_account_id']
+    end
   end
 
   # GET /vouchers/1/edit

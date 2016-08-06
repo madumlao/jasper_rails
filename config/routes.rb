@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  root 'vouchers#index'
+  root 'vouchers#dashboard'
   get 'vouchers/help'
+  get 'vouchers/dashboard'
+  post 'vouchers/editNo'
+  post 'vouchers/editAmount'
+  get 'voucher_accounts/help'
   resources :vouchers
+  resources :voucher_accounts
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
